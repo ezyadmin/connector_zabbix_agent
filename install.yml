@@ -1,5 +1,7 @@
 ---
-- roles:
+- name: EzyAdmin Playbook to install and configuration zabbix agent
+  hosts: all
+  roles:
     - role: Global
       tags: global
     - role: Install
