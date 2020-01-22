@@ -1,0 +1,41 @@
+---
+# curl -L http://cpanmin.us | perl - --sudo App::cpanminus
+- name: "Make HostmatadataItem for Linux | Install CPANMinus"
+  get_url:
+    url: http://cpanmin.us
+    dest: "/usr/bin/cpanm"
+    mode: '0755'
+  become: yes
+
+- name: "Make HostmatadataItem for Linux | Install Perl library"
+  become: true
+  command: /usr/bin/cpanm --force --notest Linux::Distribution
+#  cpanm:
+#    name: Linux::Distribution
+  tags:
+    - zabbix-agent
+
+- name: "Make HostmatadataItem for Linux | Copy sctipt make HostMatadataItem for zabbix"
+  become: true
+  copy:
+    src: "files/get_server_for_zabbix.pl" 
+    dest: "/etc/zabbix/get_server_for_zabbix.pl"
+    owner: "root"
+    group: "root"
+    mode: 0755
+  failed_when: false
+
+- name: "Make HostmatadataItem for Linux | Run script make HostMatadataItem for zabbix"
+  become: true
+  command: perl /etc/zabbix/get_server_for_zabbix.pl
+  args:
+    chdir: /etc/zabbix/
+
+- name: Check that the service_meta.txt exists
+  stat:
+    path: /etc/zabbix/service_meta.txt
+  register: service_meta_stat
+
+- name: Exit if not exists service_meta.txt file
+  fail: msg="Cannot create 'service_meta.txt' file."
+  when: service_meta_stat.stat.exists == False 

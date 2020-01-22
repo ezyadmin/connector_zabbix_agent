@@ -1,0 +1,6 @@
+---
+- roles:
+    - role: Global
+      tags: global
+    - role: Install
+      tags: zabbix-agent
