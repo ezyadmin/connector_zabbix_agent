@@ -2,6 +2,7 @@
 
 ## Configuration
 
-| key | description |
-| --- | ----------- |
-|     |             |
+| key                 | description                                          |
+| ------------------- | ---------------------------------------------------- |
+| zabbix_agent_server | The ip address for the zabbix-server or zabbix-proxy |
+| zabbix_version      | This is the version of zabbix. Default it is 4.0     |
