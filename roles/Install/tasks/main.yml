@@ -225,7 +225,7 @@
   become: yes
 
 - name: Register EzyAdmin Connector
-  include: 99_register_ezyadmin_connector.yaml
+  include: 99_register_connector.yaml
   when:
     - register_ezyadmin_connector
     - ezyadmin.api_url is defined
