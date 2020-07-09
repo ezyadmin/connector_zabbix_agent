@@ -108,3 +108,6 @@ zabbix_win_download_link: "{{ zabbix_win_download_url }}/{{ zabbix_version_long 
 zabbix_win_install_dir: 'C:\Zabbix'
 zabbix_agent_win_logfile: 'C:\Zabbix\zabbix_agentd.log'
 zabbix_agent_win_include: 'C:\Zabbix\zabbix_agent.d\'
+register_connector: true
+ezyadmin_api_url: https://api.netway.ezyadmin.com
+ezyadmin_connector: zabbix
