@@ -92,3 +92,7 @@ zabbix_agent_tlscertfile:
 zabbix_agent_tlskeyfile:
 zabbix_agent_tlspskidentity:
 zabbix_agent_tlspskfile: ''
+
+register_connector: true
+ezyadmin_api_url: https://api.netway.ezyadmin.com
+ezyadmin_connector: zabbix
