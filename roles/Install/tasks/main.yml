@@ -226,7 +226,7 @@
 
 - name: Register EzyAdmin Connector
   include: 99_register_connector.yaml
-  when:
-    - register_ezyadmin_connector
-    - ezyadmin.api_url is defined
-    - ezyadmin.connector_id is defined
+  # when:
+  #   - register_ezyadmin_connector
+  #   - ezyadmin_api_url is defined
+  #   - ezyadmin_connector is defined
