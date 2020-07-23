@@ -7,13 +7,13 @@
     mode: '0755'
   become: yes
 
-- name: "Make HostmatadataItem for Linux | Install Perl library"
-  become: true
-  command: /usr/bin/cpanm --force --notest Linux::Distribution
-#  cpanm:
-#    name: Linux::Distribution
-  tags:
-    - zabbix-agent
+# - name: "Make HostmatadataItem for Linux | Install Perl library"
+#   become: true
+#   command: /usr/bin/cpanm --force --notest Linux::Distribution
+# #  cpanm:
+# #    name: Linux::Distribution
+#   tags:
+#     - zabbix-agent
 
 - name: "Make HostmatadataItem for Linux | Copy sctipt make HostMatadataItem for zabbix"
   become: true
