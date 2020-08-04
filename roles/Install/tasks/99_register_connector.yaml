@@ -1,7 +1,7 @@
 ---
 - name: "Define EzyAdmin API URL for register connector"
   set_fact:
-    ezyadmin_register_connector_url: "{{ ezyadmin_api_url }}/external/server/connector/{{ ezyadmin_connector }}/hostname/{{ ansible_hostname }}/register/true"
+    ezyadmin_register_connector_url: "{{ ezyadmin_api_url }}/external/server/connector/{{ ezyadmin_connector }}/hostname/{{ inventory_hostname }}/register/true"
   when:
     - register_connector
 
@@ -9,6 +9,7 @@
   uri:
     url: "{{ ezyadmin_register_connector_url }}"
     method: PUT
+    status_code: [200,201]
   when: 
     - ezyadmin_register_connector_url is defined
     - ansible_os_family != "Windows"
@@ -17,6 +18,7 @@
   win_uri:
     url: "{{ ezyadmin_register_connector_url }}"
     method: PUT
+    status_code: [200,201]
   when: 
     - ezyadmin_register_connector_url is defined
-    - ansible_os_family != "Windows"
+    - ansible_os_family == "Windows"
