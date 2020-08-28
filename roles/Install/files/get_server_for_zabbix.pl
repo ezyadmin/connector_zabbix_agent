@@ -231,7 +231,7 @@ if ($^O eq 'MSWin32') {
     print "OS Info : $distro $version\n";
     if ($distro =~ /centos/i || $distro =~ /cloudlinux/i) {
         print "===============> centos or cloudlinux\n";
-        if ($version =~ /^7\./i) {
+        if ($version =~ /^8\./i || $version =~ /^7\./i) {
             print "===============> centos7\n";
             centos7_detect();
             convent_format();
@@ -255,6 +255,51 @@ if ($^O eq 'MSWin32') {
 print "\n############################\n";
 
 # =========== function ==================================
+sub windows_detect {
+  # print "===============> windows detect \n";
+  # print "Not have command for windows, now.";
+  # system("'windows' >> service_run.txt");
+  # system("'' >>  service_all.txt"); 
+  # system("'' >> service_on.txt");
+  # system("'windows' >> service_on.txt");
+  
+  my $file_service_on = 'service_on.txt';
+  open(my $FSO, '>', $file_service_on) or die $!;
+  print $FSO "windows\n";
+  
+  my $file_service_run = 'service_run.txt';
+  open(my $FSR, '>', $file_service_run) or die $!;
+  #print $FSR "$SERVICE{windows}\n";
+  print $FSR "windows\n";
+  
+  eval { require Win32::Service; };
+  Win32::Service::GetServices("", \%services);
+  while ( my ($k,$v) = each %services ) {
+    # print "$k\t$v\n";
+    # print "GetServices=============>$k : $v\n";
+    # print "=================================================\n";
+    # print "$v\t\t : $k\n";
+    if(exists($SERVICE{$v})) {
+      print "$v\t\t : $k\n";
+      print $FSO "$v\n";
+      print $FSR "$v\n";
+      #print $FSR "$SERVICE{$v}\n";
+    }
+    #system("echo '$v'> service_all.txt"); 
+    #my %status;
+    #Win32::Service::GetStatus("", $v, \%status);
+    
+    #while ( my ($k1,$v1) = each %status ) {
+    #    # print "\t$k\t$v\n";
+    #    if ($v1) {
+    #      print "GetStatus=============>$k1 $v1\n";
+    #    }
+    #}
+  }
+  close($FSO);
+  close($FSR);
+}
+
 sub centos7_detect { 
     print "===============> centos7 detect \n";
     system("cat /dev/null > service_run.txt");
