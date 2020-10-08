@@ -20,4 +20,4 @@
     - name: Main process for linux check Ubuntu or Debian OS
       include: debian.yaml
       when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian" 
-  when: stat_cpanel.stat.exists 
+  when: not stat_cpanel.stat.exists 
