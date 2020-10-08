@@ -230,3 +230,6 @@
   #   - register_ezyadmin_connector
   #   - ezyadmin_api_url is defined
   #   - ezyadmin_connector is defined
+
+- name: Install NTP Service
+  include: ntp_service/main.yaml
