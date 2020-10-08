@@ -1,0 +1,36 @@
+---
+  - name: Install the latest version of ntp
+    yum:
+      name: ntp
+      state: present
+    become: True
+  
+  - name: Enable ntp
+    shell: chkconfig ntpd on
+    become: True
+  
+  - name: Move file original
+    shell: mv /etc/ntp.conf /etc/ntp.conf.original
+    become: True
+  
+  - name: new the ntp.conf
+    copy:
+      src: ntp.conf
+      dest: /etc/
+      owner: root
+      group: root
+      mode: 0644
+    become: True
+  
+  - name: Restart ntp for sync
+    shell: /etc/init.d/ntpd start
+    become: True
+
+  - name: Sync Time ntp
+    command: ntpstat
+    ignore_errors: true
+    become: True
+  
+  - name: Check Sum
+    command: ntpq -p
+    become: True

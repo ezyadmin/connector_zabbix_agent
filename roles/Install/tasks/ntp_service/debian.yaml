@@ -1,0 +1,35 @@
+---
+- name: Install ntp ntpstat
+  apt: name=ntp,ntpstat  update-cache=yes
+  tags: ntp
+  become: True
+  
+- name: Move file original
+  shell: mv /etc/ntp.conf /etc/ntp.conf.original
+  become: True
+
+- name: new the ntp.conf
+  copy:
+    src: ntp.conf
+    dest: /etc/ntp.conf
+    owner: root
+    group: root
+    mode: 0644
+  become: True
+  
+- name: Enable ntp 
+  command: systemctl enable ntp
+  become: True
+
+- name: Restart ntp for sync
+  command: systemctl restart ntp
+  become: True
+    
+- name: Sync Time ntp
+  command: ntpstat
+  ignore_errors: true
+  become: True  
+  
+- name: Check Sum
+  command: ntpq -p
+  become: True
