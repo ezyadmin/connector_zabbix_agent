@@ -245,7 +245,10 @@ if ($^O eq 'MSWin32') {
     } elsif ($distro =~ /ubuntu/i) {
      ubuntu_detect();
      convent_format();
-    }else {
+    } elsif ($distro =~ /debian/i) {
+     ubuntu_detect();
+     convent_format();
+    } else {
         print "===============> Not support\n";
     }
 } else {
