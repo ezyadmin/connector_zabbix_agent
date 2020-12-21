@@ -13,6 +13,7 @@
     url: http://repo.zabbix.com/zabbix-official-repo.key
   when:
     - zabbix_repo == "zabbix"
+    - ansible_distribution_release != "buster"
   become: yes
   tags:
     - zabbix-agent
@@ -39,6 +40,7 @@
   when:
     - ansible_distribution == "Debian"
     - zabbix_repo == "zabbix"
+    - ansible_distribution_release != "buster"
   become: yes
   tags:
     - zabbix-agent
@@ -46,11 +48,38 @@
 
 - name: "Debian | Installing deb-src repository"
   command: dpkg -i /zabbix-release_{{ zabbix_version }}-3+bionic_all.deb
-  when: ansible_distribution in ['Ubuntu', 'Debian']
+  when: 
+    - ansible_distribution in ['Ubuntu', 'Debian']
+    - ansible_distribution_release != "buster"
   become: yes
   tags:
     - zabbix-agent
     - init
+
+- name: "Debian | Download deb-src repository Debian 10"
+  get_url: 
+    url: https://repo.zabbix.com/zabbix/{{ zabbix_version }}/debian/pool/main/z/zabbix-release/zabbix-release_{{ zabbix_version }}-3+buster_all.deb
+    dest: /zabbix-release_{{ zabbix_version }}-3+buster_all.deb
+    mode: '0644'
+  when:
+    - ansible_distribution == "Debian"
+    - zabbix_repo == "zabbix"
+    - ansible_distribution_release == "buster"
+  become: yes
+  tags:
+    - zabbix-agent
+    - init
+
+- name: "Debian | Installing deb-src repository"
+  command: dpkg -i /zabbix-release_{{ zabbix_version }}-3+buster_all.deb
+  when: 
+    - ansible_distribution in ['Ubuntu', 'Debian']
+    - ansible_distribution_release == "buster"
+  become: yes
+  tags:
+    - zabbix-agent
+    - init
+
 
 - name: "Debian | Update deb-src repository"
   command: apt-get update
