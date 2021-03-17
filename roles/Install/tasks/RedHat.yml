@@ -46,19 +46,23 @@
 
 - name: "RedHat | Installing zabbix-agent"
   yum: 
-    name: "{{ packages }}"
+    name: "{{ item }}"
     state: "{{ zabbix_agent_package_state }}"
-  vars:
-    packages:
-      - "{{ zabbix_agent_package }}"
-      - "{{ zabbix_sender_package }}"
-      - "{{ zabbix_get_package }}"
-#  package:
-#    pkg:
-#      - "{{ zabbix_agent_package }}"
-#      - "{{ zabbix_sender_package }}"
-#      - "{{ zabbix_get_package }}"
-#    state: "{{ zabbix_agent_package_state }}"
+  with_items:
+    - "{{ zabbix_agent_package }}"
+    - "{{ zabbix_sender_package }}"
+    - "{{ zabbix_get_package }}"
+  # vars:
+  #   packages:
+  #     - "{{ zabbix_agent_package }}"
+  #     - "{{ zabbix_sender_package }}"
+  #     - "{{ zabbix_get_package }}"
+  #  package:
+  #    pkg:
+  #      - "{{ zabbix_agent_package }}"
+  #      - "{{ zabbix_sender_package }}"
+  #      - "{{ zabbix_get_package }}"
+  #    state: "{{ zabbix_agent_package_state }}"
   become: yes
   tags:
     - init
