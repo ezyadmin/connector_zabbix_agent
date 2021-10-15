@@ -6,10 +6,11 @@
     - register_connector
 
 - name: "Main | Register connector to EzyAdmin - Linux"
-  uri:
-    url: "{{ ezyadmin_register_connector_url }}"
-    method: PUT
-    status_code: [200,201]
+  # uri:
+  #   url: "{{ ezyadmin_register_connector_url }}"
+  #   method: PUT
+  #   status_code: [200,201]
+  shell: 'curl -X PUT -H "Content-Type: application/json" {{ ezyadmin_register_connector_url }}''
   when: 
     - ezyadmin_register_connector_url is defined
     - ansible_os_family != "Windows"
