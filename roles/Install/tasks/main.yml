@@ -218,11 +218,27 @@
 #    - zabbix-agent
 #    - userparameter
 
-- name: "Main | Restart Zabbix Agent"
-  set_fact:
-    ansible_restart_agent: 1
-  notify: restart zabbix-agent
-  become: yes
+# - name: "Main | Restart Zabbix Agent"
+#   set_fact:
+#     ansible_restart_agent: 1
+#   notify: restart zabbix-agent
+#   become: yes
+
+- name: "Main | Restart Zabbix Agent for Linux"
+  block:
+    - name: Configure - start services automatically at boot
+      become: true
+      service:
+        name: zabbix-agent
+        enabled: yes
+    - name: Restart zabbix-agent
+      become: true
+      service:
+        name: zabbix-agent
+        state: restarted
+  when: ansible_os_family != "Windows"
+
+
 
 - name: Register EzyAdmin Connector
   include: 99_register_connector.yaml
