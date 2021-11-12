@@ -1,2 +1,4 @@
 # choose reviewer in this team when someone opens a pull request.
 *	@ezyadmin/ezyadmin
+*.html  @ezyadmin/ui
+*.css @ezyadmin/ui
