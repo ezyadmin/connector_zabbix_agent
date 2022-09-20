@@ -86,7 +86,8 @@ our %release_files = (
     'pardus-release'        => 'pardus',
     'system-release'        => 'amazon',
     'CloudLinux-release'    => 'CloudLinux',
-    'cloudlinux-release'    => 'cloudlinux-release'
+    'cloudlinux-release'    => 'cloudlinux-release',
+    'almalinux-release'    => 'almalinux-release'
 );
 
 our %version_match = (
@@ -103,7 +104,8 @@ our %version_match = (
     'scientific'            => '^Scientific Linux release (.+) \(',
     'amazon'                => 'Amazon Linux AMI release (.+)$',
     'CloudLinux'            => 'CloudLinux Server release (\S+)',
-    'cloudlinux-release'    => 'CloudLinux release (\S+)'
+    'cloudlinux-release'    => 'CloudLinux release (\S+)',
+    'almalinux-release'    => '^Alma(?:Linux)? release ([0-9]*[|\.[0-9]*]?)',
 );
 
 
@@ -132,7 +134,7 @@ sub distribution_name {
         return $distro if ($distro);
     }
 
-    foreach (qw(enterprise-release fedora-release CloudLinux-release)) {
+    foreach (qw(enterprise-release fedora-release CloudLinux-release almalinux-release)) {
         if (-f "$release_files_directory/$_" && !-l "$release_files_directory/$_"){
             if (-f "$release_files_directory/$_" && !-l "$release_files_directory/$_"){
                 $self->{'DISTRIB_ID'} = $release_files{$_};
@@ -229,7 +231,11 @@ if ($^O eq 'MSWin32') {
     my $version = $linux->distribution_version();
     print "===> Distribution version : $version\n";
     print "OS Info : $distro $version\n";
-    if ($distro =~ /centos/i || $distro =~ /cloudlinux/i) {
+    if ($distro =~ /almalinux/i) {
+    	centos7_detect();
+        convent_format();
+    }
+    elsif ($distro =~ /centos/i || $distro =~ /cloudlinux/i) {
         print "===============> centos or cloudlinux\n";
         if ($version =~ /^8\./i || $version =~ /^7\./i) {
             print "===============> centos7\n";
