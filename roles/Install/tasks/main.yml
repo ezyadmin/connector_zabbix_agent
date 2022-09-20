@@ -14,6 +14,12 @@
   when:
     - ansible_os_family == "Linuxmint"
 
+- name: "Main | Fix facts for AlmaLinux - family"
+  set_fact:
+    ansible_os_family: Linux
+  when:
+    - ansible_os_family == "AlmaLinux"
+
 - name: "Main | Include OS-specific variables"
   include_vars: "{{ ansible_os_family }}.yml"
   tags:
