@@ -71,6 +71,8 @@ sign_keys:
     xenial:
       sign_key: E709712C
   "34":
+    focal:
+      sign_key: A14FE591
     bionic:
       sign_key: A14FE591
     sonya:
