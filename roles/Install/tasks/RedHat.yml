@@ -64,6 +64,7 @@
   #      - "{{ zabbix_get_package }}"
   #    state: "{{ zabbix_agent_package_state }}"
   become: yes
+  ignore_errors: True
   tags:
     - init
     - zabbix-agent
