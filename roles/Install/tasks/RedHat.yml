@@ -45,6 +45,7 @@
     - skip_ansible_lint
 
 - name: "RedHat | Installing zabbix-agent"
+  failed_when: false
   yum: 
     name: "{{ item }}"
     state: "{{ zabbix_agent_package_state }}"
