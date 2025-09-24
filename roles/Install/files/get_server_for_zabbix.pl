@@ -105,6 +105,7 @@ our %version_match = (
     'amazon'                => 'Amazon Linux AMI release (.+)$',
     'CloudLinux'            => 'CloudLinux Server release (\S+)',
     'cloudlinux-release'    => 'CloudLinux release (\S+)',
+	'cloudlinux-release1'    => 'cloudlinux-release (\S+)',
     'almalinux-release'    => '^Alma(?:Linux)? release ([0-9]*[|\.[0-9]*]?)',
 );
 
