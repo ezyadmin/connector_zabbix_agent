@@ -105,6 +105,7 @@ our %version_match = (
     'amazon'                => 'Amazon Linux AMI release (.+)$',
     'CloudLinux'            => 'CloudLinux Server release (\S+)',
     'cloudlinux-release'    => 'CloudLinux release (\S+)',
+	'cloudlinux-release'    => 'cloudlinux-release (\S+)',
     'almalinux-release'    => '^Alma(?:Linux)? release ([0-9]*[|\.[0-9]*]?)',
 );
 
@@ -237,8 +238,8 @@ if ($^O eq 'MSWin32') {
     }
     elsif ($distro =~ /centos/i || $distro =~ /cloudlinux/i) {
         print "===============> centos or cloudlinux\n";
-        if ($version =~ /^8\./i || $version =~ /^7\./i) {
-            print "===============> centos7\n";
+        if ($version =~ /^8\./i || $version =~ /^7\./i || $version =~ /^9\./i) {
+            print "===============> centos7 or centos8 or centos9\n";
             centos7_detect();
             convent_format();
         } elsif ($version =~ /^6\./i || $version =~ /^5\./i) {
